@@ -130,7 +130,6 @@ bot.on("message", function(message) {
                 .addField(`📂 Guilds / Servers :`, `${bot.guilds.size} Guilds / Servers`)
                 .addField(`👥 Users :`, `${bot.users.size} Users`)
                 .addField(`🕘 Uptime :`, `${uptime}`)
-                .addField(`💻 Version :`, `${VERSION}`)
                 .addField(`💾 Ram used :`, `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`)
                 .addField(`👑 Owner : `, `${OWNER}`)
                 .addField(`⚙ Developer :`, `${DEVELOPER}`)
