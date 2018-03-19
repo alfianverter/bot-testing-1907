@@ -34,7 +34,17 @@ bot.on("message", function(message) {
         break;
 
         case "ping":
-          message.channel.send(":ping_pong: **Pong!** " + `${Date.now() - message.createdTimestamp}ms`)
+           var Latency_Ping = `${Date.now() - message.createdTimestamp}`
+
+           var API_Ping = (bot.ping).toFixed(2)
+
+           var embed = new Discord.RichEmbed()
+           .setColor(`RANDOM`)
+           .setFooter(`© Hazmi35 | ${VERSION}`)
+           .setTitle(`:ping_pong: **PONG!**`)
+           .addField(":signal_strength: | Latency:", Latency_Ping + "ms.", true)
+           .addField(":joystick: | API:", API_Ping + "ms.", true)
+           message.channel.send(embed);
         break;
 
         case "help":
