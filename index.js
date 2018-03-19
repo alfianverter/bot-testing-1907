@@ -8,6 +8,27 @@ const PREFIX = `.`;
 
 var bot = new Discord.Client();
 
+var jawaban = [
+    "Ya",
+    "Tidak",
+    "Mungkin",
+    "Gak Tau",
+    "Iya",
+    "Enggak",
+    "Mana gua tau!",
+    "Ya enggak lah!",
+    "Ya iyalah!",
+    "Menurutku sih, tidak",
+    "Menurutku sih, ya",
+    "Maaf, gua gak tau",
+    "Maaf, saya gak tau",
+    "Maaf, aku gak tau",
+    "Menurut saya sih, tidak",
+    "Menurut saya sih, ya",
+    "Menurut gua sih, tidak",
+    "Menurut gua sih, ya"
+]
+
 bot.on("ready", function() {
     console.log(`Aku sudah siap, Komandan!`)
     bot.user.setUsername(`Bot Test 1907`)
