@@ -1,5 +1,7 @@
 const Discord = require(`discord.js`)
 const Cuaca = require(`weather-js`)
+const moment = require("moment");
+const momentDurationFormat = require("moment-duration-format");
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
@@ -78,8 +80,9 @@ bot.on("message", function(message) {
           var embed = new Discord.RichEmbed()
             .setColor(`RANDOM`)
             .setTitle(`HELP MENU`)
-            .addField(`Utilitas`, "``help`` ``ping`` ``cuaca``")
-            .addField(`Fun`, "``say`` ``tanya`` ``kirimpesan``")
+            .addField(`Utilitas`, "``help`` ``ping`` ``cuaca`` ``stats`` ``avatar`` ``userinfo`` ``serverinfo``")
+            .addField(`Fun`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ratehusbando``")
+            .addField(`Moderation`, "``kick`` ``ban``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
           message.channel.send(embed)
@@ -105,6 +108,130 @@ bot.on("message", function(message) {
             }
     break;
             
+        case "ban":
+            if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**');
+            var member = message.mentions.members.first();
+            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member>`)
+            member.ban()
+                message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban**`)
+        break;
+        
+        case "kick":
+            if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**');
+            var member = message.mentions.members.first();
+            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member>`)
+            member.kick()
+                message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`)
+        break;
+ 
+         case "stats":
+            var uptime = moment.duration(bot.uptime).format(" D [Hari], H [Jam], m [Menit], s [Detik]");
+            var embed = new Discord.RichEmbed()
+                .addField(`📂 Guilds / Servers :`, `${bot.guilds.size} Guilds / Servers`)
+                .addField(`👥 Users :`, `${bot.users.size} Users`)
+                .addField(`🕘 Uptime :`, `${uptime}`)
+                .addField(`💻 Version :`, `${VERSION}`)
+                .addField(`💾 Ram used :`, `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`)
+                .addField(`👑 Owner : `, `${OWNER}`)
+                .addField(`⚙ Developer :`, `${DEVELOPER}`)
+                .setColor(`RANDOM`)
+                .setFooter(`© Hazmi35 | ${MOTTO}`)
+            message.channel.send(embed)
+        break;
+            
+         case "ratewaifu":
+            var waifu = args.slice(1).join(' ')
+            if (!waifu) {
+                return message.channel.send(`:x: | **Usage :** ${PREFIX}ratewaifu <Waifu>`)
+            }
+
+             var ranking = ["0/10", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
+             var rating = ranking[Math.floor(Math.random() * ranking.length)];
+
+             message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${rating} kepada ${waifu}`)
+        break;
+            
+        case "ratehusbando":
+            var husbando = args.slice(1).join(' ')
+            if (!husbando) {
+                return message.channel.send(`:x: | **Usage :** ${PREFIX}ratehusbando <Husbando>`)
+            }
+
+             var ranking = ["0/10", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
+             var rating = ranking[Math.floor(Math.random() * ranking.length)];
+
+             message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${rating} kepada ${husbando}`)
+        break;
+ 
+        case "serverinfo":
+            var embed = new Discord.RichEmbed()
+                .setTitle(`${message.guild}`)
+                .setColor(`RANDOM`)
+                .setDescription(`Server info untuk: ${message.guild}`)
+                .setThumbnail(message.guild.iconURL)
+                .setFooter(`© Hazmi35 | ${MOTTO}`)
+
+                .addField("Channels:", `${message.guild.channels.size}`, true)
+                .addField("Members:", `**[${message.guild.members.size}]**`, true)
+                .addField("Roles:", `${message.guild.roles.size}`, true)
+                .addField("Region:", `${message.guild.region}`, true)
+                .addField("ID:", `${message.guild.id}`, true)
+                .addField("Created At:", `${message.guild.createdAt}`, true)
+            message.channel.send(embed)
+        break;
+            
+        case "avatar":
+           var member = message.mentions.members.first()
+              if (!member) {
+                var embed = new Discord.RichEmbed()
+                .setTitle(`${message.author.tag}`)
+                .setDescription(`[Direct link](${message.author.avatarURL})`)
+                .setColor(`RANDOM`)
+                .setFooter(`© Hazmi35 | ${MOTTO}`)
+                .setImage(message.author.avatarURL)
+                return message.channel.send(embed)
+           }
+           var embed = new Discord.RichEmbed()
+               .setTitle(`${member.user.tag}`)
+               .setDescription(`[Direct Link](${member.user.avatarURL})`)
+               .setColor(`RANDOM`)
+               .setFooter(`© Hazmi35 | ${MOTTO}`)
+               .setImage(member.user.avatarURL)
+            message.channel.send(embed)
+        break;
+            
+         case "userinfo":
+        var member = message.mentions.members.first();
+           if (!member) {
+             var embed = new Discord.RichEmbed()
+             .setColor(`RANDOM`)
+             .setTitle(`**User Info untuk : ${message.author.tag}**`)
+             .setFooter(`© Hazmi35 | ${MOTTO}`)
+             .setThumbnail(message.author.avatarURL)
+             .addField("ID :", `${message.author.id}`)
+             .addField("Status :", `${message.author.presence.status}`)
+             .addField("Mention :", `${message.author}`)
+             .addField("Account created at:", `${message.author.createdAt}`)
+             .addField(`Joined ${message.guild.name} at :`, `${message.member.joinedAt}`)
+             .addField("Roles :", message.member.roles.map(r => r.name).join(", "))
+             .addField("Guild nickname :", `${message.member.displayName}`)
+             return message.channel.send(embed)
+        }
+        var embed = new Discord.RichEmbed()
+         .setColor(`RANDOM`)
+         .setTitle(`**User Info untuk: ${member.user.tag}**`)
+         .setFooter(`© Hazmi35 | ${MOTTO}`)
+         .setThumbnail(member.user.avatarURL)
+         .addField("ID :", `${member.id}`)
+         .addField("Status :", `${member.presence.status}`)
+         .addField("Mention :", `${member.user}`)
+         .addField("Account created at :", `${member.user.createdAt}`)
+         .addField(`Joined ${message.guild.name} at :`, `${member.joinedAt}`)
+         .addField("Roles :", member.roles.map(r => r.name).join(", "))
+         .addField("Guild nickname :", `${member.displayName}`)
+        message.channel.send(embed)
+        break;    
+            
         case "kirimpesan":
         var tujuan = message.mentions.members.first();
            if (!tujuan) {
@@ -116,7 +243,7 @@ bot.on("message", function(message) {
         }
         var embed = new Discord.RichEmbed()
         .setTitle(`Pesan`)
-        .setColor(`ORANGE`)
+        .setColor(`RANDOM`)
         .addField(`Dari :`, `${message.author}`)
         .addField(`Dari Server / Guild :`, `${message.guild}`)
         .addField(`Pesan :`, `${pesan}`)
@@ -141,7 +268,7 @@ bot.on("message", function(message) {
                 .setDescription(`**${current.skytext}**`)
                 .setAuthor(`Cuaca untuk ${current.observationpoint}`) 
                 .setThumbnail(current.imageUrl)
-                .setColor(`ORANGE`) 
+                .setColor(`RANDOM`) 
                 .addField('Zona Waktu',`UTC${lokasi.timezone}`, true) 
                 .addField('Suhu',`${current.temperature}°C`, true)
                 .addField('Terasa seperti', `${current.feelslike}°C`, true)
