@@ -17,8 +17,13 @@ bot.on("ready", function() {
 
 bot.on("guildMemberAdd", member => {
     var guild = member.guild;
-    bot.channels.get(`425204222204575767`).send(`Selamat datang ${member} di ${member.guild} server, disini adalah server dimana para bot nya ${OWNER} di uji coba.`)
+    bot.channels.get(`425219523247865870`).send(`Selamat datang ${member.user} di ${member.guild} server, disini adalah server dimana para bot nya ${OWNER} di uji coba.`)
 });
+bot.on("guildMemberRemove", member => {
+    var guild = member.guild;
+    bot.channels.get(`425219523247865870`).send(`Selamat tinggal ${member.user.username}, semoga kamu betah diluar sana :cry:.`)
+});
+
 bot.on("message", function(message) {
     if (message.channel.type === `dm`) return;
 
@@ -40,7 +45,7 @@ bot.on("message", function(message) {
 
            var embed = new Discord.RichEmbed()
            .setColor(`RANDOM`)
-           .setFooter(`© Hazmi35 | ${VERSION}`)
+           .setFooter(`© Hazmi35 | ${MOTTO}`)
            .setTitle(`:ping_pong: **PONG!**`)
            .addField(":signal_strength: | Latency:", Latency_Ping + "ms.", true)
            .addField(":joystick: | API:", API_Ping + "ms.", true)
