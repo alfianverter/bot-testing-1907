@@ -1,6 +1,6 @@
 const Discord = require(`discord.js`)
 
-const TOKEN = `NDI1MTgzODQ1NjY3ODMxODA4.DZDwbA.jPGPzKFUNpKQDneqWJp2o2KiE8w`;
+const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
 const OWNER = `<@290159952784392202> | Hazmi53#1855`;
 const DEVELOPER = `<@290159952784392202> | User1907#3936`;
