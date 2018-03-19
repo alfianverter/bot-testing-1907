@@ -81,7 +81,7 @@ bot.on("message", function(message) {
             .setColor(`RANDOM`)
             .setTitle(`HELP MENU`)
             .addField(`Utilitas`, "``help`` ``ping`` ``cuaca`` ``stats`` ``avatar`` ``userinfo`` ``serverinfo``")
-            .addField(`Fun`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ratehusbando``")
+            .addField(`Fun`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ``ratehusbando``")
             .addField(`Moderation`, "``kick`` ``ban``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
