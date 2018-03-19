@@ -61,6 +61,26 @@ bot.on("message", function(message) {
             .setFooter(`© Hazmi35 | Just Some BOT`)
           message.channel.send(embed)
         break;
+            
+    case "say":
+        if (args[1]) {
+           var say = args.slice(1).join(` `)
+           message.delete()
+           message.channel.send(say)
+        }
+        if (!args[1]) {
+           message.channel.send(`:x: | **Usage :** ${PREFIX}say <kata-kata mu>`)
+        }
+        break;
+            
+    case "tanya": 
+            if (args[1]) {
+                 message.channel.send(jawaban[Math.floor(Math.random() * jawaban.length)]);
+            }
+            if (!args[1]) {
+                message.channel.send(`:x: | **Usage :** ${PREFIX}tanya <pertanyaan>`);
+            }
+    break;
     }
 });
 
