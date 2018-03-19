@@ -78,6 +78,7 @@ bot.on("message", function(message) {
             .setColor(`RANDOM`)
             .setTitle(`HELP MENU`)
             .addField(`Utilitas`, "``help`` ``ping``")
+            .addField(`Fun`, "``say`` ``tanya``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
           message.channel.send(embed)
