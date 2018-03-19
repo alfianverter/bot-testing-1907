@@ -6,7 +6,7 @@ const momentDurationFormat = require("moment-duration-format");
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
 const OWNER = `<@290159952784392202> | Hazmi53#1855`;
-const DEVELOPER = `<@290159952784392202> | User1907#3936`;
+const DEVELOPER = `<@424183630491942913> | User1907#3936`;
 const PREFIX = `.`;
 
 var bot = new Discord.Client();
