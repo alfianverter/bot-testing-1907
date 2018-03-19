@@ -1,2 +1,2 @@
-# bot-testing-1907
-None lol
+# BOT TESTING DISCORD
+Actualy i don't know what to write here xD.
