@@ -78,7 +78,7 @@ bot.on("message", function(message) {
           var embed = new Discord.RichEmbed()
             .setColor(`RANDOM`)
             .setTitle(`HELP MENU`)
-            .addField(`Utilitas`, "``help`` ``ping``")
+            .addField(`Utilitas`, "``help`` ``ping` ``cuaca``")
             .addField(`Fun`, "``say`` ``tanya`` ``kirimpesan``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
@@ -125,6 +125,31 @@ bot.on("message", function(message) {
         message.delete()
         message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
         break;
+            
+        case "cuaca":
+        Cuaca.find({search: args.join(" "), degreeType: 'C'}, function(err, result) { 
+            if (err) message.channel.send(err);
+
+            if (result.length === 0) {
+                message.channel.send(`:x: | **Usage :** ${PREFIX}cuaca <nama lokasi>`) 
+                return; 
+            }
+            var current = result[0].current;
+            var lokasi = result[0].location;
+
+            var embed = new Discord.RichEmbed()
+                .setDescription(`**${current.skytext}**`)
+                .setAuthor(`Cuaca untuk ${current.observationpoint}`) 
+                .setThumbnail(current.imageUrl)
+                .setColor(`ORANGE`) 
+                .addField('Zona Waktu',`UTC${lokasi.timezone}`, true) 
+                .addField('Suhu',`${current.temperature}°C`, true)
+                .addField('Terasa seperti', `${current.feelslike}°C`, true)
+                .addField('Angin',current.winddisplay, true)
+                .addField('Kelembaban', `${current.humidity}%`, true)
+                .setFooter(`© Hazmi35 | ${MOTTO}`)
+                message.channel.send(embed);
+        });           
     }
 });
 
