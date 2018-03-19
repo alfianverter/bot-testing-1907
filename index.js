@@ -78,7 +78,7 @@ bot.on("message", function(message) {
           var embed = new Discord.RichEmbed()
             .setColor(`RANDOM`)
             .setTitle(`HELP MENU`)
-            .addField(`Utilitas`, "``help`` ``ping` ``cuaca``")
+            .addField(`Utilitas`, "``help`` ``ping`` ``cuaca``")
             .addField(`Fun`, "``say`` ``tanya`` ``kirimpesan``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
