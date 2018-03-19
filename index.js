@@ -1,4 +1,5 @@
 const Discord = require(`discord.js`)
+const Cuaca = require(`weather-js`)
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
