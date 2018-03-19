@@ -3,6 +3,7 @@ const Discord = require(`discord.js`)
 const TOKEN = `NDI1MTgzODQ1NjY3ODMxODA4.DZDwbA.jPGPzKFUNpKQDneqWJp2o2KiE8w`;
 const MOTTO = `Just Some BOT`;
 const OWNER = `<@290159952784392202> | Hazmi53#1855`;
+const DEVELOPER = `<@290159952784392202> | User1907#3936`;
 const PREFIX = `.`;
 
 var bot = new Discord.Client();
@@ -44,16 +45,6 @@ bot.on("message", function(message) {
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
           message.channel.send(embed)
-        break;
-
-        case "shutdown":
-          if (message.author.id == `290159952784392202`) {
-              message.channel.send(`:white_check_board: | Ok, i will shutdown my system`)
-              .then(process.exit(1))
-          }
-          if (message.author.id !== `290159952784392202`) {
-              return message.reply(`**Sorry**, but it's seems like you are not the bot owner.`)
-          }
         break;
     }
 });
