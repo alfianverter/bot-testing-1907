@@ -103,6 +103,27 @@ bot.on("message", function(message) {
                 message.channel.send(`:x: | **Usage :** ${PREFIX}tanya <pertanyaan>`);
             }
     break;
+            
+        case "kirimpesan":
+        var tujuan = message.mentions.members.first();
+           if (!tujuan) {
+               return message.channel.send(`:x: | Tolong mention member yang akan di DM. | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`)
+           }
+        var pesan = args.slice(2).join(` `)
+        if (!pesan) {
+           return message.channel.send(`:x: | Tolong tulis pesan yang akan dikirim ke ${tujuan} | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`)
+        }
+        var embed = new Discord.RichEmbed()
+        .setTitle(`Pesan`)
+        .setColor(`ORANGE`)
+        .addField(`Dari :`, `${message.author}`)
+        .addField(`Dari Server / Guild :`, `${message.guild}`)
+        .addField(`Pesan :`, `${pesan}`)
+        .setFooter(`© Hazmi35 | ${MOTTO}`)
+        tujuan.user.send(embed)
+        message.delete()
+        message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
+        break;
     }
 });
 
