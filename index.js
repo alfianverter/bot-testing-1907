@@ -261,7 +261,7 @@ bot.on("message", function(message) {
 			get('https://aws.random.cat/meow').then(response => {
                 message.channel.send(":cat: | Here is your random cat.", {files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
             })
-		}
+	}
             
         case "cuaca":
         Cuaca.find({search: args.join(" "), degreeType: 'C'}, function(err, result) { 
