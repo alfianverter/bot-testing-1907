@@ -12,6 +12,7 @@
     "discord.js": "^11.3.2",
     "moment": "^2.21.0",
     "moment-duration-format": "^2.2.2",
-    "weather-js": "^2.0.0"
+    "weather-js": "^2.0.0",
+    "random-animal": "^1.0.7"
   }
 }
