@@ -259,7 +259,11 @@ bot.on("message", function(message) {
         case "test":
         try {
                 get('https://aws.random.cat/meow').then(response => {
-                message.channel.send(":cat: | Here is your random cat.", {files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
+                var embed = new Discord.RichEmbed()
+		.setTitle(`:cat: | Here is your random cat.`)
+		.setColor(`GREEN`)
+		.setImage(`{files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]}`)
+                message.channel.send(embed);
             })
 		} catch (e) {
 			console.log(e);
