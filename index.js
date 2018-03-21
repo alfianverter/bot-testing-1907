@@ -258,15 +258,9 @@ bot.on("message", function(message) {
         break;
             
         case "test":
-	let {body} = await superagent
-	.get(`http://aws.random.cat/meow`);
-
-	var embed = new Discord.RichEmbed()
-	.setColor(`RANDOM`)
-	.setTitle(":cat: | Meow..")
-	.setImage(body.file);
-	message.channel.send(embed);
-        break;
+        random.cat().then(url => {
+	message.channel.send(url)
+	})
 		    
         case "cuaca":
         Cuaca.find({search: args.join(" "), degreeType: 'C'}, function(err, result) { 
