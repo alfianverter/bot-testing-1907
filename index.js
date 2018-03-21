@@ -258,8 +258,12 @@ bot.on("message", function(message) {
             
         case "test":
         random.cat().then(url => {
-	message.channel.send(url)
+	var embed = new Discord.RichEmbed()
+	.setTitle(`:cat: | Here is your random cat`)
+	.setImage(url.file)
 	})
+        break;
+		    
 		    
         case "cuaca":
         Cuaca.find({search: args.join(" "), degreeType: 'C'}, function(err, result) { 
