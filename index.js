@@ -1,7 +1,8 @@
-const Discord = require(`discord.js`)
-const Cuaca = require(`weather-js`)
+const Discord = require(`discord.js`);
+const Cuaca = require(`weather-js`);
 const moment = require("moment");
 const momentDurationFormat = require("moment-duration-format");
+const random = require(`random-animal`)
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
@@ -250,6 +251,10 @@ bot.on("message", function(message) {
         tujuan.user.send(embed)
         message.delete()
         message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
+        break;
+            
+        case "test":
+            random.cat().then(url => message.channel.send(url)).catch(err => console.log(err.message));
         break;
             
         case "cuaca":
