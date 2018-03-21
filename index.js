@@ -261,6 +261,7 @@ bot.on("message", function(message) {
 	var embed = new Discord.RichEmbed()
 	.setTitle(`:cat: | Here is your random cat`)
 	.setImage(url.file)
+	message.channel.send(embed)
 	})
         break;
 		    
