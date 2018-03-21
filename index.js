@@ -256,14 +256,14 @@ bot.on("message", function(message) {
         message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
         break;
             
-        case "test":
-        random.cat().then(url => {
-	var embed = new Discord.RichEmbed()
-	.setTitle(`:cat: | Here is your random cat`)
-	.setImage(url)
-	.setColor(`RANDOM`)
-	message.channel.send(embed)
-	})
+        case "cat":
+          random.cat().then(url => {
+       	  var embed = new Discord.RichEmbed()
+ 	  .setTitle(`:cat: | Here is your random cat`)
+	  .setImage(url)
+	  .setColor(`RANDOM`)
+	  message.channel.send(embed)
+	  })
         break;
 		    
 		    
