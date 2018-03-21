@@ -6,7 +6,6 @@ const random = require(`random-animal`);
 var request = require("request");
 const {get} = require("snekfetch");
 const snekfetch = require('snekfetch');
-const superagent = require(`superagent`)
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
