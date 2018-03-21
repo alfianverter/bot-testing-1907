@@ -83,7 +83,6 @@ bot.on("message", function(message) {
         case "help":
           var embed = new Discord.RichEmbed()
             .setColor(`RANDOM`)
-            .setTitle(`HELP MENU`)
             .addField(`UTILITAS`, "``help`` ``ping`` ``cuaca`` ``stats`` ``avatar`` ``userinfo`` ``serverinfo``")
             .addField(`FUN`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ``ratehusbando`` ``cat``")
             .addField(`MODERATION`, "``kick`` ``ban``")
