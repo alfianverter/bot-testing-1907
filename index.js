@@ -258,7 +258,7 @@ bot.on("message", function(message) {
         break;
             
         case "test":
-	var {body} = await superagent
+	let {body} = await superagent
 	.get(`http://aws.random.cat/meow`);
 
 	var embed = new Discord.RichEmbed()
