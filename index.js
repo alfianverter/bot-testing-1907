@@ -258,7 +258,7 @@ bot.on("message", function(message) {
             
         case "test":
         try {
-			get('https://aws.random.cat/meow').then(response => {
+                get('https://aws.random.cat/meow').then(response => {
                 message.channel.send(":cat: | Here is your random cat.", {files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
             })
 	}
