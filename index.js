@@ -262,7 +262,7 @@ bot.on("message", function(message) {
                 var embed = new Discord.RichEmbed()
 		.setTitle(`:cat: | Here is your random cat.`)
 		.setColor(`GREEN`)
-		.setImage(`{files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]}`)
+		.setImage({files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]})
                 message.channel.send(embed);
             })
 		} catch (e) {
