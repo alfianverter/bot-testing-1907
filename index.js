@@ -6,6 +6,7 @@ const random = require(`random-animal`);
 var request = require("request");
 const {get} = require("snekfetch");
 const snekfetch = require('snekfetch');
+const superagent = require(`superagent`)
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
@@ -257,17 +258,14 @@ bot.on("message", function(message) {
         break;
             
         case "test":
-        try {
-                get('https://aws.random.cat/meow').then(response => {
-                var embed = new Discord.RichEmbed()
-		.setTitle(`:cat: | Here is your random cat.`)
-		.setColor(`GREEN`)
-		.setImage(response.file)
-                message.channel.send(embed);
-            })
-		} catch (e) {
-			console.log(e);
-		}		
+	var {body} = await superagent
+	.get(`http://aws.random.cat/meow`);
+
+	var embed = new Discord.RichEmbed()
+	.setColor(`RANDOM`)
+	.setTitle(":cat: | Meow..")
+	.setImage(body.file);
+	message.channel.send(embed);
         break;
 		    
         case "cuaca":
