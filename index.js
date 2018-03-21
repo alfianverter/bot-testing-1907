@@ -253,10 +253,6 @@ bot.on("message", function(message) {
         message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
         break;
             
-        case "test":
-            random.cat().then(url => message.channel.send(url)).catch(err => console.log(err.message));
-        break;
-            
         case "cuaca":
         Cuaca.find({search: args.join(" "), degreeType: 'C'}, function(err, result) { 
             if (err) message.channel.send(err);
