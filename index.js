@@ -2,7 +2,10 @@ const Discord = require(`discord.js`);
 const Cuaca = require(`weather-js`);
 const moment = require("moment");
 const momentDurationFormat = require("moment-duration-format");
-const random = require(`random-animal`)
+const random = require(`random-animal`);
+var request = require("request");
+const {get} = require("snekfetch");
+const snekfetch = require('snekfetch');
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
@@ -252,6 +255,13 @@ bot.on("message", function(message) {
         message.delete()
         message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
         break;
+            
+        case "test":
+        try {
+			get('https://aws.random.cat/meow').then(response => {
+                message.channel.send(":cat: | Here is your random cat.", {files: [{attachment: response.body.file, name: `cat.${response.body.file.split('.')[2]}`}]});
+            })
+		}
             
         case "cuaca":
         Cuaca.find({search: args.join(" "), degreeType: 'C'}, function(err, result) { 
