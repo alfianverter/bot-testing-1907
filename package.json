@@ -13,6 +13,7 @@
     "moment": "^2.21.0",
     "moment-duration-format": "^2.2.2",
     "weather-js": "^2.0.0",
-    "random-animal": "^1.0.7"
+    "random-animal": "^1.0.7",
+    "random-cat": "^1.0.1"
   }
 }
