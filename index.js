@@ -289,6 +289,7 @@ bot.on("message", function(message) {
                 .addField('Kelembaban', `${current.humidity}%`, true)
                 .setFooter(`© Hazmi35 | ${MOTTO}`)
                 message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}cuaca command on ${message.guild.name}`));
+	});
     }
 });
 
