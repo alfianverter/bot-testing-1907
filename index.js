@@ -77,7 +77,7 @@ bot.on("message", function(message) {
            .setTitle(`:ping_pong: **PONG!**`)
            .addField(":signal_strength: | Latency:", Latency_Ping + "ms.", true)
            .addField(":joystick: | API:", API_Ping + "ms.", true)
-           message.channel.send(embed);
+           message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}ping command on {message.guild.name}`));
         break;
 
         case "help":
@@ -88,43 +88,43 @@ bot.on("message", function(message) {
             .addField(`MODERATION`, "``kick`` ``ban``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
-          message.channel.send(embed)
+          message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
             
     case "say":
         if (args[1]) {
            var say = args.slice(1).join(` `)
            message.delete()
-           message.channel.send(say)
+           message.channel.send(say).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         }
         if (!args[1]) {
-           message.channel.send(`:x: | **Usage :** ${PREFIX}say <kata-kata mu>`)
+           message.channel.send(`:x: | **Usage :** ${PREFIX}say <kata-kata mu>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         }
         break;
             
     case "tanya": 
             if (args[1]) {
-                 message.channel.send(jawaban[Math.floor(Math.random() * jawaban.length)]);
+                 message.channel.send(jawaban[Math.floor(Math.random() * jawaban.length)]).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             }
             if (!args[1]) {
-                message.channel.send(`:x: | **Usage :** ${PREFIX}tanya <pertanyaan>`);
+                message.channel.send(`:x: | **Usage :** ${PREFIX}tanya <pertanyaan>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             }
     break;
             
         case "ban":
-            if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**');
+            if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             var member = message.mentions.members.first();
-            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member>`)
+            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             member.ban()
-                message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban**`)
+                message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban**`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
         
         case "kick":
-            if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**');
+            if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             var member = message.mentions.members.first();
-            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member>`)
+            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             member.kick()
-                message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`)
+                message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
  
          case "stats":
@@ -138,31 +138,31 @@ bot.on("message", function(message) {
                 .addField(`⚙ Developer :`, `${DEVELOPER}`)
                 .setColor(`RANDOM`)
                 .setFooter(`© Hazmi35 | ${MOTTO}`)
-            message.channel.send(embed)
+            message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
             
          case "ratewaifu":
             var waifu = args.slice(1).join(' ')
             if (!waifu) {
-                return message.channel.send(`:x: | **Usage :** ${PREFIX}ratewaifu <Waifu>`)
+                return message.channel.send(`:x: | **Usage :** ${PREFIX}ratewaifu <Waifu>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             }
 
              var ranking = ["0/10", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
              var rating = ranking[Math.floor(Math.random() * ranking.length)];
 
-             message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${rating} kepada ${waifu}`)
+             message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${rating} kepada ${waifu}`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
             
         case "ratehusbando":
             var husbando = args.slice(1).join(' ')
             if (!husbando) {
-                return message.channel.send(`:x: | **Usage :** ${PREFIX}ratehusbando <Husbando>`)
+                return message.channel.send(`:x: | **Usage :** ${PREFIX}ratehusbando <Husbando>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
             }
 
              var ranking = ["0/10", "1/10", "2/10", "3/10", "4/10", "5/10", "6/10", "7/10", "8/10", "9/10", "10/10"]
              var rating = ranking[Math.floor(Math.random() * ranking.length)];
 
-             message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${rating} kepada ${husbando}`)
+             message.channel.send(`:thinking: | **${message.author.username}**, Saya berikan ${rating} kepada ${husbando}`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
  
         case "serverinfo":
@@ -179,7 +179,7 @@ bot.on("message", function(message) {
                 .addField("Region:", `${message.guild.region}`, true)
                 .addField("ID:", `${message.guild.id}`, true)
                 .addField("Created At:", `${message.guild.createdAt}`, true)
-            message.channel.send(embed)
+            message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
             
         case "avatar":
@@ -191,7 +191,7 @@ bot.on("message", function(message) {
                 .setColor(`RANDOM`)
                 .setFooter(`© Hazmi35 | ${MOTTO}`)
                 .setImage(message.author.avatarURL)
-                return message.channel.send(embed)
+                return message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
            }
            var embed = new Discord.RichEmbed()
                .setTitle(`${member.user.tag}`)
@@ -199,7 +199,7 @@ bot.on("message", function(message) {
                .setColor(`RANDOM`)
                .setFooter(`© Hazmi35 | ${MOTTO}`)
                .setImage(member.user.avatarURL)
-            message.channel.send(embed)
+            message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
             
          case "userinfo":
@@ -217,7 +217,7 @@ bot.on("message", function(message) {
              .addField(`Joined ${message.guild.name} at :`, `${message.member.joinedAt}`)
              .addField("Roles :", message.member.roles.map(r => r.name).join(", "))
              .addField("Guild nickname :", `${message.member.displayName}`)
-             return message.channel.send(embed)
+             return message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         }
         var embed = new Discord.RichEmbed()
          .setColor(`RANDOM`)
@@ -231,17 +231,17 @@ bot.on("message", function(message) {
          .addField(`Joined ${message.guild.name} at :`, `${member.joinedAt}`)
          .addField("Roles :", member.roles.map(r => r.name).join(", "))
          .addField("Guild nickname :", `${member.displayName}`)
-        message.channel.send(embed)
+        message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;    
             
         case "kirimpesan":
         var tujuan = message.mentions.members.first();
            if (!tujuan) {
-               return message.channel.send(`:x: | Tolong mention member yang akan di DM. | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`)
+               return message.channel.send(`:x: | Tolong mention member yang akan di DM. | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
            }
         var pesan = args.slice(2).join(` `)
         if (!pesan) {
-           return message.channel.send(`:x: | Tolong tulis pesan yang akan dikirim ke ${tujuan} | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`)
+           return message.channel.send(`:x: | Tolong tulis pesan yang akan dikirim ke ${tujuan} | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         }
         var embed = new Discord.RichEmbed()
         .setTitle(`Pesan`)
@@ -252,7 +252,7 @@ bot.on("message", function(message) {
         .setFooter(`© Hazmi35 | ${MOTTO}`)
         tujuan.user.send(embed)
         message.delete()
-        message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`)
+        message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         break;
             
         case "cat":
@@ -261,7 +261,7 @@ bot.on("message", function(message) {
  	  .setTitle(`:cat: | Here is your random cat`)
 	  .setImage(url)
 	  .setColor(`RANDOM`)
-	  message.channel.send(embed)
+	  message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
 	  })
         break;
 		    
@@ -288,7 +288,7 @@ bot.on("message", function(message) {
                 .addField('Angin',current.winddisplay, true)
                 .addField('Kelembaban', `${current.humidity}%`, true)
                 .setFooter(`© Hazmi35 | ${MOTTO}`)
-                message.channel.send(embed);
+                message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on {message.guild.name}`));
         });           
     }
 });
