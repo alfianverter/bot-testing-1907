@@ -6,6 +6,8 @@ const random = require(`random-animal`);
 var request = require("request");
 const {get} = require("snekfetch");
 const snekfetch = require('snekfetch');
+const ytdl = require("ytdl-core");
+const opusscript = require("opusscript")
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
@@ -14,6 +16,22 @@ const DEVELOPER = `<@424183630491942913> | User1907#3936`;
 const PREFIX = `.`;
 
 var bot = new Discord.Client();
+
+var servers = {};
+
+function play(connection, message) {
+    var server = servers[message.guild.id];
+
+    server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: "audioonly"}));
+
+    server.queue.shift();
+    
+    server.dispatcher.on("end", function() {
+        if (server.queue[0]) play(connection, message);
+        else connection.disconnect();
+    })
+
+}
 
 var jawaban = [
     "Ya",
@@ -254,14 +272,49 @@ bot.on("message", function(message) {
         message.delete()
         message.channel.send(`:white_check_mark: | ${message.author} | Aku sudah mengirim pesanmu ke DM's nya ${tujuan.user.tag}`).then(console.log(`${message.author.tag} is using ${PREFIX}kirimpesan command on ${message.guild.name}`));
         break;
-            
+
+        case "play":
+          if (!args[1]) {
+              message.channel.send(`Please provide a link!`)
+              return;
+          }
+          if (!message.member.voiceChannel) {
+              message.channel.send(`Please join a voice channel!`)
+              return;
+          }
+
+          if (!servers[message.guild.id]) servers[message.guild.id] = {
+              queue: []
+          }
+          
+          var server = servers[message.guild.id];
+
+          server.queue.push(args[1]);
+
+          if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+              play(connection, message);
+          }) 
+        break;
+
+        case "skip":
+          var server = servers[message.guild.id];
+
+          if (server.dispatcher) server.dispatcher.end();
+        break;
+
+        case "stop":
+          var server = servers[message.guild.id];
+
+          if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+        break;
+
         case "cat":
           random.cat().then(url => {
        	  var embed = new Discord.RichEmbed()
- 	  .setTitle(`:cat: | Here is your random cat`)
-	  .setImage(url)
-	  .setColor(`RANDOM`)
-	  message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}cat command on ${message.guild.name}`));
+ 	       .setTitle(`:cat: | Here is your random cat`)
+	       .setImage(url)
+	       .setColor(`RANDOM`)
+	      message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}cat command on ${message.guild.name}`));
 	  })
         break;
 		    
