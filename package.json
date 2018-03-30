@@ -16,7 +16,6 @@
     "random-animal": "^1.0.7",
     "random-cat": "^1.0.1",
     "weather-js": "^2.0.0",
-    "ytdl-core": "^0.20.2",
-    "ffmpeg": "^0.0.4"
+    "ytdl-core": "^0.20.2"
   }
 }
