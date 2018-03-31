@@ -15,7 +15,7 @@ const OWNER = `<@290159952784392202> | Hazmi53#1855`;
 const DEVELOPER = `<@424183630491942913> | User1907#3936`;
 const PREFIX = `.`;
 
-var bot = new Discord.Client();
+var bot = new Discord.Client({disableEveryone: true})
 
 var servers = {};
 
@@ -131,7 +131,7 @@ bot.on("message", function(message) {
             
         case "ban":
             if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
-            var member = message.mentions.members.first();
+            var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
             if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member>`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
             member.ban()
                 message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
@@ -139,7 +139,7 @@ bot.on("message", function(message) {
         
         case "kick":
             if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
-            var member = message.mentions.members.first();
+            var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
             if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member>`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
             member.kick()
                 message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
@@ -201,7 +201,7 @@ bot.on("message", function(message) {
         break;
             
         case "avatar":
-           var member = message.mentions.members.first()
+           var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
               if (!member) {
                 var embed = new Discord.RichEmbed()
                 .setTitle(`${message.author.tag}`)
@@ -221,7 +221,7 @@ bot.on("message", function(message) {
         break;
             
          case "userinfo":
-        var member = message.mentions.members.first();
+        var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
            if (!member) {
              var embed = new Discord.RichEmbed()
              .setColor(`RANDOM`)
@@ -253,7 +253,7 @@ bot.on("message", function(message) {
         break;    
             
         case "kirimpesan":
-        var tujuan = message.mentions.members.first();
+        var tujuan = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
            if (!tujuan) {
                return message.channel.send(`:x: | Tolong mention member yang akan di DM. | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`).then(console.log(`${message.author.tag} is using ${PREFIX}kirimpesan command on ${message.guild.name}`));
            }
