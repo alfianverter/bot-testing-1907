@@ -99,7 +99,7 @@ bot.on("message", async message => {
             .setColor(`RANDOM`)
             .addField(`UTILITAS`, "``help`` ``ping`` ``cuaca`` ``stats`` ``avatar`` ``userinfo`` ``serverinfo``")
             .addField(`FUN`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ``ratehusbando`` ``cat``")
-            .addField(`MODERATION`, "``kick`` ``ban``")
+            .addField(`MODERATION`, "``kick`` ``ban`` ``warn``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
           message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on ${message.guild.name}`));
