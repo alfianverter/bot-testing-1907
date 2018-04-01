@@ -187,7 +187,7 @@ bot.on("message", async message => {
             .addField(`You have been warned in`, `${message.guild.name}`)
             .addField(`Warned by`, `<@${message.author.id}>`)
             .addField(`Reason`, reason)
-            member.user.send(warn).then(message.delete).then(message.channel.send(`:white_check_mark: _**${member.user.tag} Berhasil di warn.**_`)).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`))
+            member.user.send(warn).then(message.delete()).then(message.channel.send(`:white_check_mark: _**${member.user.tag} Berhasil di warn.**_`)).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`))
            } catch(e) {
                console.log(e)
            }
