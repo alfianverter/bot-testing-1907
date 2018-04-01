@@ -139,7 +139,7 @@ bot.on("message", async message => {
             .setAuthor(`BANNED`, message.guild.iconURL)
             .setColor(`#FF0000`)
             .setFooter(`© Hazmi35 | ${MOTTO}`)
-            .addField(`You're banned from`, `${message.guild.name}`)
+            .addField(`You have been banned from`, `${message.guild.name}`)
             .addField(`Banned By`, `<@${message.author.id}>`)
             .addField(`Reason`, reason)
             member.user.send(notify).then(member.ban(reason).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban dengan reason : ${reason}**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`))));
@@ -162,7 +162,7 @@ bot.on("message", async message => {
             .setAuthor(`KICKED`, message.guild.iconURL)
             .setColor(`#FF0000`)
             .setFooter(`© Hazmi35 | ${MOTTO}`)
-            .addField(`You're kicked from`, `${message.guild.name}`)
+            .addField(`You have been kicked from`, `${message.guild.name}`)
             .addField(`Kicked By`, `<@${message.author.id}>`)
             .addField(`Reason`, reason)
             member.user.send(notify).then(member.kick(reason).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick dengan reason : ${reason}**`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`))));
@@ -184,7 +184,7 @@ bot.on("message", async message => {
             .setAuthor(`WARNED`, message.guild.iconURL)
             .setColor(`#FF0000`)
             .setFooter(`© Hazmi35 | ${MOTTO}`)
-            .addField(`You're warned from`, `${message.guild.name}`)
+            .addField(`You have been warned in`, `${message.guild.name}`)
             .addField(`Warned by`, `<@${message.author.id}>`)
             .addField(`Reason`, reason)
             member.user.send(warn).then(message.delete).then(message.channel.send(`:white_check_mark: _**${member.user.tag} Berhasil di warn.**_`)).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`))
