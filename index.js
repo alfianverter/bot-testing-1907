@@ -132,7 +132,7 @@ bot.on("message", async message => {
             if (member.permissions.has(`BAN_MEMBERS`)) return message.channel.send(`Aku tidak bisa ngeban orang itu!`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
             var reason = args.slice(2).join(" ")
             if (!reason) {
-               return member.kick(`none`).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`)));
+               return member.kick(`none`).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`)));
             }
             try {
             var notify = new Discord.RichEmbed()
