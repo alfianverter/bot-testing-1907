@@ -54,7 +54,7 @@ var jawaban = [
     "Menurut gua sih, ya"
 ]
 
-bot.on("ready", function() {
+bot.on("ready", async () => {
     console.log(`Aku sudah siap, Komandan!`)
     bot.user.setUsername(`Bot Test 1907`)
 
@@ -63,14 +63,14 @@ bot.on("ready", function() {
 
 bot.on("guildMemberAdd", member => {
     var guild = member.guild;
-    bot.channels.get(`425219523247865870`).send(`Selamat datang ${member.user} di ${member.guild} server, disini adalah server dimana para bot nya ${OWNER} di uji coba.`)
+    bot.channels.get(`425219523247865870`).send(`Selamat datang <@${member.user.id}> di ${member.guild} server, disini adalah server dimana para bot nya ${OWNER} di uji coba.`)
 });
 bot.on("guildMemberRemove", member => {
     var guild = member.guild;
     bot.channels.get(`425219523247865870`).send(`Selamat tinggal ${member.user.username}, semoga kamu betah diluar sana :cry:.`)
 });
 
-bot.on("message", function(message) {
+bot.on("message", async message => {
     if (message.channel.type === `dm`) return;
 
     if (message.author.bot) return;
@@ -80,10 +80,6 @@ bot.on("message", function(message) {
     var args = message.content.substring(PREFIX.length).split(" ")
 
     switch (args[0].toLocaleLowerCase()) {
-        default:
-          message.channel.send(`:x: | **Command tidak di ketahui tulis ${PREFIX}help untuk help**`)
-        break;
-
         case "ping":
            var Latency_Ping = `${Date.now() - message.createdTimestamp}`
 
@@ -132,18 +128,70 @@ bot.on("message", function(message) {
         case "ban":
             if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
             var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
-            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member>`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
-            member.ban()
-                message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
+            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
+            if (member.permissions.has(`BAN_MEMBERS`)) return message.channel.send(`Aku tidak bisa ngeban orang itu!`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
+            var reason = args.slice(2).join(" ")
+            if (!reason) {
+               return member.kick(`none`).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`)));
+            }
+            try {
+            var notify = new Discord.RichEmbed()
+            .setAuthor(`BANNED`, message.guild.iconURL)
+            .setColor(`#FF0000`)
+            .setFooter(`© Hazmi35 | ${MOTTO}`)
+            .addField(`You're banned from`, `${message.guild.name}`)
+            .addField(`Banned By`, `<@${message.author.id}>`)
+            .addField(`Reason`, reason)
+            member.user.send(notify).then(member.ban(reason).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di ban dengan reason : ${reason}**`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`))));
+            } catch(e) {
+                console.log(e)
+            }
         break;
         
         case "kick":
             if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
             var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
-            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member>`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
-            member.kick()
-                message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
+            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
+            if (member.permissions.has(`KICK_MEMBERS`)) return message.channel.send(`Aku tidak bisa ngekick orang itu!`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
+            var reason = args.slice(2).join(" ")
+            if (!reason) {
+               return member.kick(`none`).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick**`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`)));
+            }
+            try {
+            var notify = new Discord.RichEmbed()
+            .setAuthor(`KICKED`, message.guild.iconURL)
+            .setColor(`#FF0000`)
+            .setFooter(`© Hazmi35 | ${MOTTO}`)
+            .addField(`You're kicked from`, `${message.guild.name}`)
+            .addField(`Kicked By`, `<@${message.author.id}>`)
+            .addField(`Reason`, reason)
+            member.user.send(notify).then(member.kick(reason).then(message.channel.send(`:white_check_mark: **${member.user} Berhasil di kick dengan reason : ${reason}**`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`))));
+            } catch(e) {
+                console.log(e)
+            }
         break;
+
+         case "warn":
+           if (!message.member.permissions.has(`MANAGE_MESSAGES`)) return message.channel.send(`:x: **Anda tidak memiliki izin untuk itu!**`).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`));
+           var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+           if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}warn <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`));
+           var reason = args.slice(2).join(" ")
+           if (!reason) {
+               return message.channel.send(`:x: | **Usage :** ${PREFIX}warn <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`));
+           }
+           try {
+            var warn = new Discord.RichEmbed()
+            .setAuthor(`WARNED`, message.guild.iconURL)
+            .setColor(`#FF0000`)
+            .setFooter(`© Hazmi35 | ${MOTTO}`)
+            .addField(`You're warned from`, `${message.guild.name}`)
+            .addField(`Warned by`, `<@${message.author.id}>`)
+            .addField(`Reason`, reason)
+            member.user.send(warn).then(message.delete).then(message.channel.send(`:white_check_mark: _**${member.user.tag} Berhasil di warn.**_`)).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`))
+           } catch(e) {
+               console.log(e)
+           }
+         break;
  
          case "stats":
             var uptime = moment.duration(bot.uptime).format(" D [Hari], H [Jam], m [Menit], s [Detik]");
@@ -205,9 +253,8 @@ bot.on("message", function(message) {
               if (!member) {
                 var embed = new Discord.RichEmbed()
                 .setTitle(`${message.author.tag}`)
-                .setDescription(`[Direct link](${message.author.avatarURL})`)
+                .setDescription(`[Direct Link](${message.author.avatarURL})`)
                 .setColor(`RANDOM`)
-                .setFooter(`© Hazmi35 | ${MOTTO}`)
                 .setImage(message.author.avatarURL)
                 return message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}avatar command on ${message.guild.name}`));
            }
@@ -215,7 +262,6 @@ bot.on("message", function(message) {
                .setTitle(`${member.user.tag}`)
                .setDescription(`[Direct Link](${member.user.avatarURL})`)
                .setColor(`RANDOM`)
-               .setFooter(`© Hazmi35 | ${MOTTO}`)
                .setImage(member.user.avatarURL)
             message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}avatar command on ${message.guild.name}`));
         break;
@@ -307,6 +353,8 @@ bot.on("message", function(message) {
 
           if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
         break;
+
+        case "":
 
         case "cat":
           random.cat().then(url => {
