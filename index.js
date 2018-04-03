@@ -98,7 +98,7 @@ bot.on("message", async message => {
           var embed = new Discord.RichEmbed()
             .setColor(`RANDOM`)
             .addField(`UTILITAS`, "``help`` ``ping`` ``cuaca`` ``stats`` ``avatar`` ``userinfo`` ``serverinfo``")
-            .addField(`FUN`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ``ratehusbando`` ``cat``")
+            .addField(`FUN`, "``say`` ``tanya`` ``kirimpesan`` ``ratewaifu`` ``ratehusbando`` ``cat`` ``dog``")
             .addField(`MODERATION`, "``kick`` ``ban`` ``warn``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
@@ -127,7 +127,7 @@ bot.on("message", async message => {
             
         case "ban":
             if (!message.member.permissions.has('BAN_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
-            var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+            var member = message.mentions.members.first() || message.guild.members.get(args[1]);
             if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}ban <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}ban command on ${message.guild.name}`));
             if (member.permissions.has(`BAN_MEMBERS`)) return message.channel.send(`Aku tidak bisa ngeban orang itu!`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
             var reason = args.slice(2).join(" ")
@@ -150,7 +150,7 @@ bot.on("message", async message => {
         
         case "kick":
             if (!message.member.permissions.has('KICK_MEMBERS')) return message.channel.send(':x: **Anda tidak memiliki izin untuk itu!**').then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
-            var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+            var member = message.mentions.members.first() || message.guild.members.get(args[1]);
             if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}kick <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
             if (member.permissions.has(`KICK_MEMBERS`)) return message.channel.send(`Aku tidak bisa ngekick orang itu!`).then(console.log(`${message.author.tag} is using ${PREFIX}kick command on ${message.guild.name}`));
             var reason = args.slice(2).join(" ")
@@ -173,7 +173,7 @@ bot.on("message", async message => {
 
          case "warn":
            if (!message.member.permissions.has(`MANAGE_MESSAGES`)) return message.channel.send(`:x: **Anda tidak memiliki izin untuk itu!**`).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`));
-           var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+           var member = message.mentions.members.first() || message.guild.members.get(args[1]);
            if (!member) return message.channel.send(`:x: | **Usage :** ${PREFIX}warn <@member> <reason>`).then(console.log(`${message.author.tag} is using ${PREFIX}warn command on ${message.guild.name}`));
            var reason = args.slice(2).join(" ")
            if (!reason) {
@@ -195,11 +195,13 @@ bot.on("message", async message => {
  
          case "stats":
             var uptime = moment.duration(bot.uptime).format(" D [Hari], H [Jam], m [Menit], s [Detik]");
+            var cpu = process.cpuUsage().system / 1024 / 1024
             var embed = new Discord.RichEmbed()
                 .addField(`📂 Guilds / Servers :`, `${bot.guilds.size} Guilds / Servers`)
                 .addField(`👥 Users :`, `${bot.users.size} Users`)
                 .addField(`🕘 Uptime :`, `${uptime}`)
                 .addField(`💾 Ram used :`, `${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB`)
+                .addField(`💻 Cpu used :`, `${Math.round(cpu * 100) / 100}%`)
                 .addField(`👑 Owner : `, `${OWNER}`)
                 .addField(`⚙ Developer :`, `${DEVELOPER}`)
                 .setColor(`RANDOM`)
@@ -249,7 +251,7 @@ bot.on("message", async message => {
         break;
             
         case "avatar":
-           var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+           var member = message.mentions.members.first() || message.guild.members.get(args[1]);
               if (!member) {
                 var embed = new Discord.RichEmbed()
                 .setTitle(`${message.author.tag}`)
@@ -266,8 +268,8 @@ bot.on("message", async message => {
             message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}avatar command on ${message.guild.name}`));
         break;
             
-         case "userinfo":
-        var member = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+        case "userinfo":
+        var member = message.mentions.members.first() || message.guild.members.get(args[1]);
            if (!member) {
              var embed = new Discord.RichEmbed()
              .setColor(`RANDOM`)
@@ -299,7 +301,7 @@ bot.on("message", async message => {
         break;    
             
         case "kirimpesan":
-        var tujuan = message.mentions.members.first() || message.guild.members.get(args[1]) || message.member;
+        var tujuan = message.mentions.members.first() || message.guild.members.get(args[1]);
            if (!tujuan) {
                return message.channel.send(`:x: | Tolong mention member yang akan di DM. | **Usage :** ${PREFIX}kirimpesan <@member> <pesan>`).then(console.log(`${message.author.tag} is using ${PREFIX}kirimpesan command on ${message.guild.name}`));
            }
@@ -354,16 +356,24 @@ bot.on("message", async message => {
           if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
         break;
 
-        case "":
-
         case "cat":
           random.cat().then(url => {
        	  var embed = new Discord.RichEmbed()
- 	       .setTitle(`:cat: | Here is your random cat`)
+ 	       .setTitle(`🐱 | Here is your random cat`)
 	       .setImage(url)
 	       .setColor(`RANDOM`)
 	      message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}cat command on ${message.guild.name}`));
-	  })
+	    })
+        break;
+
+        case "dog":
+          random.dog().then(url => {
+          var embed = new Discord.RichEmbed()
+           .setTitle(`🐶 | Here is your random dog`)
+           .setImage(url)
+           .setColor(`RANDOM`)
+          message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}dog command on ${message.guild.name}`)); 
+        })
         break;
 		    
 		    
