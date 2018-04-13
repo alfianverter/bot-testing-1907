@@ -7,7 +7,8 @@ var request = require("request");
 const {get} = require("snekfetch");
 const snekfetch = require('snekfetch');
 const ytdl = require("ytdl-core");
-const opusscript = require("opusscript")
+const opusscript = require("opusscript");
+const dateFormat = require('dateformat');
 
 const TOKEN = `${process.env.BOT_TOKEN}`;
 const MOTTO = `Just Some BOT`;
@@ -28,7 +29,7 @@ function play(connection, message) {
     
     server.dispatcher.on("end", function() {
         if (server.queue[0]) play(connection, message);
-        else connection.disconnect();
+        else connection.disconnect() || message.channel.send("Song ended. Leaving voice channel..")
     })
 
 }
@@ -95,6 +96,8 @@ bot.on("message", async message => {
         break;
 
         case "help":
+          var helpnextstage = args.slice(1).join(' ')
+          if (!helpnextstage) {
           var embed = new Discord.RichEmbed()
             .setColor(`RANDOM`)
             .addField(`UTILITAS`, "``help`` ``ping`` ``cuaca`` ``stats`` ``avatar`` ``userinfo`` ``serverinfo``")
@@ -102,12 +105,19 @@ bot.on("message", async message => {
             .addField(`MODERATION`, "``kick`` ``ban`` ``warn``")
             .addBlankField()
             .setFooter(`© Hazmi35 | Just Some BOT`)
-          message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on ${message.guild.name}`));
+          return message.channel.send(embed).then(console.log(`${message.author.tag} is using ${PREFIX}help command on ${message.guild.name}`));
+          }
+          if (helpnextstage.match('cuaca')) {
+              return message.channel.send(`**Cuaca :** Cek cuaca dikota manapun! \n**Usage :** ${PREFIX}cuaca <lokasi>`)
+          }
+          if (helpnextstage.match('say')) {
+              return message.channel.send(`**Say :** Suruh bot mengatakan kata-kata yang kamu suruh. \n**Usage :** ${PREFIX}say <kata-kata mu>`)
+          }
         break;
             
     case "say":
         if (args[1]) {
-           var say = args.slice(1).join(` `)
+           var say = args.slice(1).join(' ')
            message.delete()
            message.channel.send(say).then(console.log(`${message.author.tag} is using ${PREFIX}say command on ${message.guild.name}`));
         }
@@ -322,6 +332,7 @@ bot.on("message", async message => {
         break;
 
         case "play":
+        var urlsong = args.slice(1).join(' ')
           if (!args[1]) {
               message.channel.send(`Please provide a link!`)
               return;
@@ -341,19 +352,32 @@ bot.on("message", async message => {
 
           if (!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
               play(connection, message);
+              message.channel.send(`Playing : <${urlsong}>`)
           }) 
         break;
 
         case "skip":
           var server = servers[message.guild.id];
 
-          if (server.dispatcher) server.dispatcher.end();
+          if (server.dispatcher) { 
+            try {
+                server.dispatcher.end()
+            } catch (e) {
+                console.log(e)
+            } finally {
+                message.channel.send("Skipped 1 song.")
+            }
+            return
+          }
+          if (!server.dispatcher) return message.channel.send("Nothing played right now. | No song in queue")
         break;
 
         case "stop":
           var server = servers[message.guild.id];
 
-          if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+          if (message.guild.voiceConnection) {
+              message.guild.voiceConnection.disconnect();
+          }
         break;
 
         case "cat":
