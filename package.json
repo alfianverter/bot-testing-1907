@@ -9,12 +9,17 @@
   "author": "Me.",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "discord.js": "^11.3.2",
+    "gyp": "^0.5.0",
     "moment": "^2.21.0",
     "moment-duration-format": "^2.2.2",
+    "node-gyp": "^3.6.2",
     "opusscript": "0.0.6",
     "random-animal": "^1.0.7",
     "random-cat": "^1.0.1",
+    "rebuild": "^0.1.2",
+    "simple-youtube-api": "^5.0.1",
     "weather-js": "^2.0.0",
     "ytdl-core": "^0.20.2"
   }
