@@ -390,6 +390,21 @@ bot.on("message", async message => {
 	    })
         break;
 
+        case "exit":
+         if (message.author.id !== "290159952784392202") {
+             return console.log(`${message.author.tag} is trying to stop the bot, but he can't`)
+         }
+         if (message.author.id === "290159952784392202") {
+             message.delete()
+             return message.channel.send(`Ok.`).then(exit => {
+                 setTimeout(() => {
+                    console.log(`Stopping node.js application...`)
+                    process.exit(0)
+                 }, 250)
+             })
+         }
+         break;
+
         case "dog":
           random.dog().then(url => {
           var embed = new Discord.RichEmbed()
